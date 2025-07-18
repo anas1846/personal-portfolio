@@ -225,7 +225,7 @@ font-family: Arial, Helvetica, sans-serif;
     line-height: 1.6;
     margin-bottom: 20px;
     font-size: 20px;
-    width: 390px;
+    width: 420px;
 }
  .projectbtn{
     background-color:#3C8CFF ;
@@ -285,4 +285,124 @@ font-family: Arial, Helvetica, sans-serif;
 .contact-form button:hover {
   background-color: #ffd000;
   transform: scale(1.05);
+}
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    gap: 10px;
+    padding: 10px 0;
+  }
+
+  .menu {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+
+  .herosection {
+    height: auto;
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .herosection p {
+    font-size: 1.3rem;
+  }
+
+  .section,
+  .section2,
+  .section3 {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    margin: 30px 0;
+    text-align: center;
+  }
+
+  .about,
+  .skill,
+  .projectsection {
+    width: 95%;
+    align-items: center;
+  }
+
+  .about p {
+    width: 100%;
+  }
+
+  .items {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .html {
+    width: 90%;
+    height: auto;
+    padding: 20px 0;
+  }
+
+  .projectsection {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .project1 {
+    width: 90%;
+    height: auto;
+  }
+
+  .project1 p {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+  }
+
+  .line {
+    width: 150px;
+  }
+}
+
+/* Tablets (between 768px and 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    gap: 15px;
+    padding: 10px 0;
+  }
+
+  .menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .items {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .projectsection {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .project1 {
+    width: 80%;
+    height: auto;
+  }
+
+  .project1 p {
+    width: 100%;
+  }
 }
