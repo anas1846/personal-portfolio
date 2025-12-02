@@ -44,3 +44,8 @@ function openSignupPage() {
     window.open("praticequestion/signup.html", "_blank"); // agar file folder me ho
     // agar file same folder me ho to bas "signup.html" likho
   }
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { validateContactForm, openSignupPage };
+}
+  }
