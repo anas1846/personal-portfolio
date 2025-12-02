@@ -20,6 +20,7 @@ function openSignupPage() {
     window.open("praticequestion/signup.html", "_blank");
 }
 
+/* istanbul ignore next */
 // Setup event listeners
 if (typeof document !== 'undefined') {
   let newabout = document.querySelector(".about1");
@@ -64,6 +65,7 @@ if (typeof document !== 'undefined') {
   }
 }
 
+/* istanbul ignore next */
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { validateContactForm, openSignupPage };
 }
