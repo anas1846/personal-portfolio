@@ -20,41 +20,50 @@ function openSignupPage() {
     window.open("praticequestion/signup.html", "_blank");
 }
 
-function setupEventListeners() {
-  if (typeof document !== 'undefined') {
-    let newabout = document.querySelector(".about1");
-    let aboutsection = document.querySelector(".section");
-    let newskill=document.querySelector(".skill1")
-    let skillsection=document.querySelector(".section2")
-    let newproject=document.querySelector(".project2")
-    let projectsection=document.querySelector(".section3")
+// Setup event listeners
+if (typeof document !== 'undefined') {
+  let newabout = document.querySelector(".about1");
+  let aboutsection = document.querySelector(".section");
+  let newskill=document.querySelector(".skill1")
+  let skillsection=document.querySelector(".section2")
+  let newproject=document.querySelector(".project2")
+  let projectsection=document.querySelector(".section3")
+
+  if (newabout && aboutsection) {
     newabout.addEventListener("click", () => {
         aboutsection.scrollIntoView({ behavior: "smooth" });
     });
+  }
+
+  if (newskill && skillsection) {
     newskill.addEventListener("click", () => {
         skillsection.scrollIntoView({ behavior: "smooth" });
     });
+  }
+
+  if (newproject && projectsection) {
     newproject.addEventListener("click", () => {
         projectsection.scrollIntoView({ behavior: "smooth" });
     });
-    let newcontact=document.querySelector(".contact")
-    let contactsection=document.querySelector(".contact-section")
+  }
 
+  let newcontact=document.querySelector(".contact")
+  let contactsection=document.querySelector(".contact-section")
+
+  if (newcontact && contactsection) {
     newcontact.addEventListener("click", () => {
         contactsection.scrollIntoView({ behavior: "smooth" });
     });
-    let newhire=document.querySelector(".hire")
+  }
+
+  let newhire=document.querySelector(".hire")
+  if (newhire && contactsection) {
     newhire.addEventListener("click", () => {
         contactsection.scrollIntoView({ behavior: "smooth" });
     });
   }
 }
 
-// Auto-setup in browser environment
-if (typeof document !== 'undefined' && typeof module === 'undefined') {
-  setupEventListeners();
-}
-
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { validateContactForm, openSignupPage, setupEventListeners };
+  module.exports = { validateContactForm, openSignupPage };
 }
