@@ -1,0 +1,24 @@
+{
+  "name": "personal-portfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio website with comprehensive test coverage",
+  "main": "03_portfolio.js",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:verbose": "jest --verbose"
+  },
+  "keywords": [
+    "portfolio",
+    "javascript",
+    "testing"
+  ],
+  "author": "anas1846",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.11",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}
