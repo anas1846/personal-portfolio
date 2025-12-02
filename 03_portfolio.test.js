@@ -701,3 +701,48 @@ describe('Environment Check Coverage - Line 24 and 67', () => {
         vm.runInNewContext(sourceCode, sandbox);
       }).not.toThrow();
 });
+  describe('Environment Branch Coverage - Module Reload Tests', () => {
+    test('should handle undefined document by reloading module', () => {
+      // Save original document
+      const originalDocument = global.document;
+
+      // Clear module cache
+      delete require.cache[require.resolve('./03_portfolio.js')];
+
+      // Temporarily remove document
+      delete global.document;
+
+      // Reload module - this should execute the false branch of line 24
+      expect(() => {
+        require('./03_portfolio.js');
+      }).not.toThrow();
+
+      // Restore document
+      global.document = originalDocument;
+
+      // Clear cache again for clean state
+      delete require.cache[require.resolve('./03_portfolio.js')];
+    });
+
+    test('should handle falsy module.exports by testing the condition', () => {
+      // This tests the second part of the compound condition on line 67
+      // The condition is: if (typeof module !== 'undefined' && module.exports)
+
+      // Save original exports
+      const originalExports = module.exports;
+
+      // Clear module cache
+      delete require.cache[require.resolve('./03_portfolio.js')];
+
+      // Set module.exports to falsy value
+      module.exports = null;
+
+      // Reload module - this should execute the false branch of line 67
+      require('./03_portfolio.js');
+
+      // Restore exports
+      module.exports = originalExports;
+
+      // Clear cache for clean state
+      delete require.cache[require.resolve('./03_portfolio.js')];
+    });
