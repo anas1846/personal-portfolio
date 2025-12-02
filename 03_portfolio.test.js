@@ -3,12 +3,17 @@
  */
 
 describe('03_portfolio.js - DOM Interactions and Event Listeners', () => {
-  let mockAbout, mockAboutSection, mockSkill, mockSkillSection;
-  let mockProject, mockProjectSection, mockContact, mockContactSection, mockHire;
-  let mockNameInput, mockEmailInput, mockMessageInput;
+  let mockAboutElement;
+  let mockAboutSection;
+  let mockSkillElement;
+  let mockSkillSection;
+  let mockProjectElement;
+  let mockProjectSection;
+  let mockContactElement;
+  let mockContactSection;
+  let mockHireElement;
 
   beforeEach(() => {
-    // Reset DOM
     document.body.innerHTML = `
       <button class="about1">About</button>
       <section class="section"></section>
@@ -19,250 +24,99 @@ describe('03_portfolio.js - DOM Interactions and Event Listeners', () => {
       <button class="contact">Contact</button>
       <section class="contact-section"></section>
       <button class="hire">Hire me</button>
-      <input type="text" id="name" />
-      <input type="email" id="email" />
-      <textarea id="message"></textarea>
+      <form onsubmit="return validateContactForm()">
+        <input type="text" id="name" />
+        <input type="email" id="email" />
+        <textarea id="message"></textarea>
+      </form>
     `;
 
-    // Mock scrollIntoView
-    Element.prototype.scrollIntoView = jest.fn();
+    mockAboutElement = document.querySelector('.about1');
+    mockAboutSection = document.querySelector('.section');
+    mockSkillElement = document.querySelector('.skill1');
+    mockSkillSection = document.querySelector('.section2');
+    mockProjectElement = document.querySelector('.project2');
+    mockProjectSection = document.querySelector('.section3');
+    mockContactElement = document.querySelector('.contact');
+    mockContactSection = document.querySelector('.contact-section');
+    mockHireElement = document.querySelector('.hire');
 
-    // Mock alert
+    mockAboutSection.scrollIntoView = jest.fn();
+    mockSkillSection.scrollIntoView = jest.fn();
+    mockProjectSection.scrollIntoView = jest.fn();
+    mockContactSection.scrollIntoView = jest.fn();
+
     global.alert = jest.fn();
-
-    // Mock window.open
     global.window.open = jest.fn();
 
-    // Get references to DOM elements
-    mockAbout = document.querySelector('.about1');
-    mockAboutSection = document.querySelector('.section');
-    mockSkill = document.querySelector('.skill1');
-    mockSkillSection = document.querySelector('.section2');
-    mockProject = document.querySelector('.project2');
-    mockProjectSection = document.querySelector('.section3');
-    mockContact = document.querySelector('.contact');
-    mockContactSection = document.querySelector('.contact-section');
-    mockHire = document.querySelector('.hire');
-    mockNameInput = document.getElementById('name');
-    mockEmailInput = document.getElementById('email');
-    mockMessageInput = document.getElementById('message');
+    require('./03_portfolio.js');
   });
 
   afterEach(() => {
+    jest.resetModules();
     jest.clearAllMocks();
   });
 
-  describe('About Section Navigation', () => {
-    test('should query and store about button element', () => {
-      const aboutBtn = document.querySelector('.about1');
-      expect(aboutBtn).toBeTruthy();
-      expect(aboutBtn.textContent).toBe('About');
-    });
-
-    test('should query and store about section element', () => {
-      const aboutSec = document.querySelector('.section');
-      expect(aboutSec).toBeTruthy();
-    });
-
+  describe('Navigation - About Section', () => {
     test('should scroll to about section when about button is clicked', () => {
-      // Simulate the event listener setup
-      mockAbout.addEventListener('click', () => {
-        mockAboutSection.scrollIntoView({ behavior: 'smooth' });
-      });
-
-      // Trigger click
-      mockAbout.click();
-
-      // Verify scrollIntoView was called with correct parameters
-      expect(mockAboutSection.scrollIntoView).toHaveBeenCalledWith({
-        behavior: 'smooth'
-      });
+      mockAboutElement.click();
+      expect(mockAboutSection.scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
     });
   });
 
-  describe('Skill Section Navigation', () => {
-    test('should query and store skill button element', () => {
-      const skillBtn = document.querySelector('.skill1');
-      expect(skillBtn).toBeTruthy();
-      expect(skillBtn.textContent).toBe('Skill');
-    });
-
-    test('should query and store skill section element', () => {
-      const skillSec = document.querySelector('.section2');
-      expect(skillSec).toBeTruthy();
-    });
-
+  describe('Navigation - Skill Section', () => {
     test('should scroll to skill section when skill button is clicked', () => {
-      // Simulate the event listener setup
-      mockSkill.addEventListener('click', () => {
-        mockSkillSection.scrollIntoView({ behavior: 'smooth' });
-      });
-
-      // Trigger click
-      mockSkill.click();
-
-      // Verify scrollIntoView was called with correct parameters
-      expect(mockSkillSection.scrollIntoView).toHaveBeenCalledWith({
-        behavior: 'smooth'
-      });
+      mockSkillElement.click();
+      expect(mockSkillSection.scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
     });
   });
 
-  describe('Project Section Navigation', () => {
-    test('should query and store project button element', () => {
-      const projectBtn = document.querySelector('.project2');
-      expect(projectBtn).toBeTruthy();
-      expect(projectBtn.textContent).toBe('Project');
-    });
-
-    test('should query and store project section element', () => {
-      const projectSec = document.querySelector('.section3');
-      expect(projectSec).toBeTruthy();
-    });
-
+  describe('Navigation - Project Section', () => {
     test('should scroll to project section when project button is clicked', () => {
-      // Simulate the event listener setup
-      mockProject.addEventListener('click', () => {
-        mockProjectSection.scrollIntoView({ behavior: 'smooth' });
-      });
-
-      // Trigger click
-      mockProject.click();
-
-      // Verify scrollIntoView was called with correct parameters
-      expect(mockProjectSection.scrollIntoView).toHaveBeenCalledWith({
-        behavior: 'smooth'
-      });
+      mockProjectElement.click();
+      expect(mockProjectSection.scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
     });
   });
 
-  describe('Contact Section Navigation', () => {
-    test('should query and store contact button element', () => {
-      const contactBtn = document.querySelector('.contact');
-      expect(contactBtn).toBeTruthy();
-      expect(contactBtn.textContent).toBe('Contact');
-    });
-
-    test('should query and store contact section element', () => {
-      const contactSec = document.querySelector('.contact-section');
-      expect(contactSec).toBeTruthy();
-    });
-
+  describe('Navigation - Contact Section', () => {
     test('should scroll to contact section when contact button is clicked', () => {
-      // Simulate the event listener setup
-      mockContact.addEventListener('click', () => {
-        mockContactSection.scrollIntoView({ behavior: 'smooth' });
-      });
-
-      // Trigger click
-      mockContact.click();
-
-      // Verify scrollIntoView was called with correct parameters
-      expect(mockContactSection.scrollIntoView).toHaveBeenCalledWith({
-        behavior: 'smooth'
-      });
-    });
-  });
-
-  describe('Hire Button Navigation', () => {
-    test('should query and store hire button element', () => {
-      const hireBtn = document.querySelector('.hire');
-      expect(hireBtn).toBeTruthy();
-      expect(hireBtn.textContent).toBe('Hire me');
+      mockContactElement.click();
+      expect(mockContactSection.scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
     });
 
     test('should scroll to contact section when hire button is clicked', () => {
-      // Simulate the event listener setup
-      mockHire.addEventListener('click', () => {
-        mockContactSection.scrollIntoView({ behavior: 'smooth' });
-      });
-
-      // Trigger click
-      mockHire.click();
-
-      // Verify scrollIntoView was called with correct parameters
-      expect(mockContactSection.scrollIntoView).toHaveBeenCalledWith({
-        behavior: 'smooth'
-      });
+      mockHireElement.click();
+      expect(mockContactSection.scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
     });
   });
 
-  describe('validateContactForm Function', () => {
-    // Define the function in the test scope
-    function validateContactForm() {
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const message = document.getElementById('message').value.trim();
-
-      if (!name || !email || !message) {
-        alert('Please fill out all fields.');
-        return false;
-      }
-      if (!email.includes('@')) {
-        alert('Enter a valid email address.');
-        return false;
-      }
-
-      alert('Thank you! Your message has been sent.');
-      return true;
-    }
-
-    beforeEach(() => {
-      // Reset input values
-      mockNameInput.value = '';
-      mockEmailInput.value = '';
-      mockMessageInput.value = '';
-      jest.clearAllMocks();
-    });
-
-    test('should return false when name is empty', () => {
-      mockNameInput.value = '';
-      mockEmailInput.value = 'test@example.com';
-      mockMessageInput.value = 'Test message';
+  describe('validateContactForm - Happy Path', () => {
+    test('should return true and show success message when all fields are valid', () => {
+      document.getElementById('name').value = 'John Doe';
+      document.getElementById('email').value = 'john@example.com';
+      document.getElementById('message').value = 'Hello, this is a test message.';
 
       const result = validateContactForm();
 
-      expect(result).toBe(false);
-      expect(global.alert).toHaveBeenCalledWith('Please fill out all fields.');
+      expect(result).toBe(true);
+      expect(global.alert).toHaveBeenCalledWith('Thank you! Your message has been sent.');
     });
 
-    test('should return false when email is empty', () => {
-      mockNameInput.value = 'John Doe';
-      mockEmailInput.value = '';
-      mockMessageInput.value = 'Test message';
+    test('should handle email with multiple @ symbols', () => {
+      document.getElementById('name').value = 'Jane Doe';
+      document.getElementById('email').value = 'jane@@example.com';
+      document.getElementById('message').value = 'Test message';
 
       const result = validateContactForm();
 
-      expect(result).toBe(false);
-      expect(global.alert).toHaveBeenCalledWith('Please fill out all fields.');
+      expect(result).toBe(true);
+      expect(global.alert).toHaveBeenCalledWith('Thank you! Your message has been sent.');
     });
 
-    test('should return false when message is empty', () => {
-      mockNameInput.value = 'John Doe';
-      mockEmailInput.value = 'test@example.com';
-      mockMessageInput.value = '';
-
-      const result = validateContactForm();
-
-      expect(result).toBe(false);
-      expect(global.alert).toHaveBeenCalledWith('Please fill out all fields.');
-    });
-
-    test('should return false when email does not contain @', () => {
-      mockNameInput.value = 'John Doe';
-      mockEmailInput.value = 'invalidemail.com';
-      mockMessageInput.value = 'Test message';
-
-      const result = validateContactForm();
-
-      expect(result).toBe(false);
-      expect(global.alert).toHaveBeenCalledWith('Enter a valid email address.');
-    });
-
-    test('should return true when all fields are valid', () => {
-      mockNameInput.value = 'John Doe';
-      mockEmailInput.value = 'test@example.com';
-      mockMessageInput.value = 'Test message';
+    test('should trim whitespace from input fields', () => {
+      document.getElementById('name').value = '  John Doe  ';
+      document.getElementById('email').value = '  john@example.com  ';
+      document.getElementById('message').value = '  Test message  ';
 
       const result = validateContactForm();
 
@@ -271,16 +125,213 @@ describe('03_portfolio.js - DOM Interactions and Event Listeners', () => {
     });
   });
 
-  describe('openSignupPage Function', () => {
-    test('should open signup page in new tab', () => {
-      // Define the function in the test scope
-      function openSignupPage() {
-        window.open('praticequestion/signup.html', '_blank');
-      }
+  describe('validateContactForm - Error Cases', () => {
+    test('should return false and show error when name is empty', () => {
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = 'john@example.com';
+      document.getElementById('message').value = 'Test message';
 
+      const result = validateContactForm();
+
+      expect(result).toBe(false);
+      expect(global.alert).toHaveBeenCalledWith('Please fill out all fields.');
+    });
+
+    test('should return false and show error when email is empty', () => {
+      document.getElementById('name').value = 'John Doe';
+      document.getElementById('email').value = '';
+      document.getElementById('message').value = 'Test message';
+
+      const result = validateContactForm();
+
+      expect(result).toBe(false);
+      expect(global.alert).toHaveBeenCalledWith('Please fill out all fields.');
+    });
+
+    test('should return false and show error when message is empty', () => {
+      document.getElementById('name').value = 'John Doe';
+      document.getElementById('email').value = 'john@example.com';
+      document.getElementById('message').value = '';
+
+      const result = validateContactForm();
+
+      expect(result).toBe(false);
+      expect(global.alert).toHaveBeenCalledWith('Please fill out all fields.');
+    });
+
+    test('should return false and show error when all fields are empty', () => {
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('message').value = '';
+
+      const result = validateContactForm();
+
+      expect(result).toBe(false);
+      expect(global.alert).toHaveBeenCalledWith('Please fill out all fields.');
+    });
+
+    test('should return false when name is only whitespace', () => {
+      document.getElementById('name').value = '   ';
+      document.getElementById('email').value = 'john@example.com';
+      document.getElementById('message').value = 'Test message';
+
+      const result = validateContactForm();
+
+      expect(result).toBe(false);
+      expect(global.alert).toHaveBeenCalledWith('Please fill out all fields.');
+    });
+
+    test('should return false when email is only whitespace', () => {
+      document.getElementById('name').value = 'John Doe';
+      document.getElementById('email').value = '   ';
+      document.getElementById('message').value = 'Test message';
+
+      const result = validateContactForm();
+
+      expect(result).toBe(false);
+      expect(global.alert).toHaveBeenCalledWith('Please fill out all fields.');
+    });
+
+    test('should return false when message is only whitespace', () => {
+      document.getElementById('name').value = 'John Doe';
+      document.getElementById('email').value = 'john@example.com';
+      document.getElementById('message').value = '   ';
+
+      const result = validateContactForm();
+
+      expect(result).toBe(false);
+      expect(global.alert).toHaveBeenCalledWith('Please fill out all fields.');
+    });
+
+    test('should return false and show error when email does not contain @', () => {
+      document.getElementById('name').value = 'John Doe';
+      document.getElementById('email').value = 'johnexample.com';
+      document.getElementById('message').value = 'Test message';
+
+      const result = validateContactForm();
+
+      expect(result).toBe(false);
+      expect(global.alert).toHaveBeenCalledWith('Enter a valid email address.');
+    });
+
+    test('should return false when email is just a single character without @', () => {
+      document.getElementById('name').value = 'John Doe';
+      document.getElementById('email').value = 'a';
+      document.getElementById('message').value = 'Test message';
+
+      const result = validateContactForm();
+
+      expect(result).toBe(false);
+      expect(global.alert).toHaveBeenCalledWith('Enter a valid email address.');
+    });
+  });
+
+  describe('validateContactForm - Edge Cases', () => {
+    test('should handle very long input values', () => {
+      const longString = 'a'.repeat(1000);
+      document.getElementById('name').value = longString;
+      document.getElementById('email').value = `${longString}@example.com`;
+      document.getElementById('message').value = longString;
+
+      const result = validateContactForm();
+
+      expect(result).toBe(true);
+      expect(global.alert).toHaveBeenCalledWith('Thank you! Your message has been sent.');
+    });
+
+    test('should handle special characters in name', () => {
+      document.getElementById('name').value = 'John O\'Brien-Smith';
+      document.getElementById('email').value = 'john@example.com';
+      document.getElementById('message').value = 'Test message';
+
+      const result = validateContactForm();
+
+      expect(result).toBe(true);
+      expect(global.alert).toHaveBeenCalledWith('Thank you! Your message has been sent.');
+    });
+
+    test('should handle email with @ at the beginning', () => {
+      document.getElementById('name').value = 'John Doe';
+      document.getElementById('email').value = '@example.com';
+      document.getElementById('message').value = 'Test message';
+
+      const result = validateContactForm();
+
+      expect(result).toBe(true);
+      expect(global.alert).toHaveBeenCalledWith('Thank you! Your message has been sent.');
+    });
+
+    test('should handle email with @ at the end', () => {
+      document.getElementById('name').value = 'John Doe';
+      document.getElementById('email').value = 'john@';
+      document.getElementById('message').value = 'Test message';
+
+      const result = validateContactForm();
+
+      expect(result).toBe(true);
+      expect(global.alert).toHaveBeenCalledWith('Thank you! Your message has been sent.');
+    });
+
+    test('should handle single character inputs', () => {
+      document.getElementById('name').value = 'J';
+      document.getElementById('email').value = 'j@e';
+      document.getElementById('message').value = 'M';
+
+      const result = validateContactForm();
+
+      expect(result).toBe(true);
+      expect(global.alert).toHaveBeenCalledWith('Thank you! Your message has been sent.');
+    });
+  });
+
+  describe('openSignupPage', () => {
+    test('should open signup page in new tab', () => {
       openSignupPage();
 
       expect(global.window.open).toHaveBeenCalledWith('praticequestion/signup.html', '_blank');
+    });
+
+    test('should call window.open exactly once', () => {
+      openSignupPage();
+
+      expect(global.window.open).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('DOM Element Selection', () => {
+    test('should select all required DOM elements on page load', () => {
+      expect(document.querySelector('.about1')).toBeTruthy();
+      expect(document.querySelector('.section')).toBeTruthy();
+      expect(document.querySelector('.skill1')).toBeTruthy();
+      expect(document.querySelector('.section2')).toBeTruthy();
+      expect(document.querySelector('.project2')).toBeTruthy();
+      expect(document.querySelector('.section3')).toBeTruthy();
+      expect(document.querySelector('.contact')).toBeTruthy();
+      expect(document.querySelector('.contact-section')).toBeTruthy();
+      expect(document.querySelector('.hire')).toBeTruthy();
+    });
+  });
+
+  describe('Multiple Click Events', () => {
+    test('should handle multiple clicks on about button', () => {
+      mockAboutElement.click();
+      mockAboutElement.click();
+      mockAboutElement.click();
+
+      expect(mockAboutSection.scrollIntoView).toHaveBeenCalledTimes(3);
+    });
+
+    test('should handle multiple clicks on different navigation buttons', () => {
+      mockAboutElement.click();
+      mockSkillElement.click();
+      mockProjectElement.click();
+      mockContactElement.click();
+      mockHireElement.click();
+
+      expect(mockAboutSection.scrollIntoView).toHaveBeenCalledTimes(1);
+      expect(mockSkillSection.scrollIntoView).toHaveBeenCalledTimes(1);
+      expect(mockProjectSection.scrollIntoView).toHaveBeenCalledTimes(1);
+      expect(mockContactSection.scrollIntoView).toHaveBeenCalledTimes(2);
     });
   });
 });
