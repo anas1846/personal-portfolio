@@ -556,4 +556,52 @@ describe('03_portfolio.js - Complete Test Coverage', () => {
       expect(result).toBe(true);
     });
   });
+
+describe('Environment Check Coverage - Line 24 and 67', () => {
+  describe('Document undefined check (Line 24)', () => {
+    it('should handle when document is undefined', () => {
+      // Save original document
+      const originalDocument = global.document;
+
+      // Set document to undefined
+      delete global.document;
+
+      // Re-require the module to execute the code with document undefined
+      jest.resetModules();
+
+      // This should not throw an error
+      expect(() => {
+        require('./03_portfolio.js');
+      }).not.toThrow();
+
+      // Restore document
+      global.document = originalDocument;
+      jest.resetModules();
+    });
+  });
+
+  describe('Module exports check (Line 67)', () => {
+    it('should handle when module is undefined', () => {
+      // Save original module
+      const originalModule = global.module;
+
+      // Set module to undefined
+      delete global.module;
+
+      // Re-require the module
+      jest.resetModules();
+
+      // This should not throw an error
+      expect(() => {
+        require('./03_portfolio.js');
+      }).not.toThrow();
+
+      // Restore module
+      global.module = originalModule;
+      jest.resetModules();
+
+      // Re-require to restore normal state
+      require('./03_portfolio.js');
+    });
+  });
 });
