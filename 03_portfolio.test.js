@@ -652,4 +652,52 @@ describe('Environment Check Coverage - Line 24 and 67', () => {
       require('./03_portfolio.js');
     });
   });
+
+  describe('Environment Branch Coverage - document undefined (Line 24)', () => {
+    test('should skip event listener setup when document is undefined', () => {
+      // Save original document
+      const originalDocument = global.document;
+
+      // Clear module cache
+      jest.resetModules();
+      delete require.cache[require.resolve('./03_portfolio.js')];
+
+      // Temporarily remove document
+      delete global.document;
+
+      // Reload module without document - this should cover line 24 false branch
+      const moduleWithoutDocument = require('./03_portfolio.js');
+
+      // Verify module still exports functions even without document
+      expect(moduleWithoutDocument.validateContactForm).toBeDefined();
+      expect(moduleWithoutDocument.openSignupPage).toBeDefined();
+
+      // Restore document
+      global.document = originalDocument;
+      jest.resetModules();
+    });
+  });
+
+  describe('Environment Branch Coverage - module.exports falsy (Line 67)', () => {
+    test('should handle when module.exports is not available', () => {
+      // This test uses vm module to execute code in a different context
+      const vm = require('vm');
+      const fs = require('fs');
+      const path = require('path');
+
+      // Read the source code
+      const sourceCode = fs.readFileSync(path.join(__dirname, '03_portfolio.js'), 'utf8');
+
+      // Create a sandbox without module.exports
+      const sandbox = {
+        document: undefined,
+        window: {},
+        alert: jest.fn(),
+        module: undefined
+      };
+
+      // Execute code in sandbox - this covers line 67 false branch
+      expect(() => {
+        vm.runInNewContext(sourceCode, sandbox);
+      }).not.toThrow();
 });
