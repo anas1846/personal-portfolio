@@ -1,3 +1,6 @@
+const { validateContactForm, openSignupPage } = require('./03_portfolio.js');
+
+
 /**
  * @jest-environment jsdom
  */
