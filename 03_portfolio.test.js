@@ -746,3 +746,8 @@ describe('Environment Check Coverage - Line 24 and 67', () => {
       // Clear cache for clean state
       delete require.cache[require.resolve('./03_portfolio.js')];
     });
+  });
+  });
+});
+});
+});
